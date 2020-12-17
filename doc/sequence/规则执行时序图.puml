@@ -1,0 +1,36 @@
+@startuml
+
+title 规则执行时序图
+autonumber 1 1 "  <b>000: "
+
+participant 调用方 as dyf
+participant 规则接口 as gzjk
+participant 加载器 as jzq
+participant 构建器 as gjq
+participant 执行器 as zxq
+
+dyf -> gzjk: 执行规则
+activate gzjk
+
+gzjk -> jzq:加载规则配置
+activate jzq
+
+
+jzq -> gjq:获取执行对象
+activate gjq
+jzq <-- gjq:返回执行对象
+deactivate gjq
+
+gzjk <-- jzq :返回规则配置
+deactivate jzq
+
+gzjk -> zxq:规则判定
+activate zxq
+gzjk <-- zxq :返回规则结果
+deactivate zxq
+
+gzjk->gzjk:结果装配
+
+dyf <-- gzjk: 执行规则
+deactivate gzjk
+@enduml
